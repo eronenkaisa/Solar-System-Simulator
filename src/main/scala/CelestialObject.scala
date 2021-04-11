@@ -1,3 +1,5 @@
+package main.scala
+
 class CelestialObject(name: String, mass: Double, startingPoint: (Double, Double), currentPoint: (Double, Double), speed: Double, acceleration: Double, radius: Double) {
 
   def getName = name
