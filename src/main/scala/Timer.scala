@@ -1,8 +1,7 @@
 package main.scala
 
-class Timer(simulationStep: Int, simulationPeriod: Int) {
+class Timer(val amountOfSteps: Int, val simulationPeriod: Int) {
 
-  def Steps: Int = simulationPeriod / simulationStep
+  val durationOfOneStep = simulationPeriod / amountOfSteps
 
-  def getSimulationStep = simulationStep
 }
