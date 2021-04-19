@@ -1,0 +1,11 @@
+Väliraportti ke 17.3
+Projekti luotu ja yhdisttetty Gittiin ja oikeuden assarille jaettu.
+Käytetty aika < 5h
+
+Väliraportti 31.3
+Projekti ei ole edennyt. Vaikeuksi saada kokoon kaava, jolla lasketaan kiertoradan pisteet. 
+Käytetty aika < 5h
+
+Väliraportti 14.4
+Mallimuuttujia luotu, jotta saisi paremman hahmotuksen ratapisteiden laskemisesta, mikä edelleen tuottaa hankaluuksia. 
+Käytetty aika = 5h
