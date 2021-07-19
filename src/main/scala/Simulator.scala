@@ -7,6 +7,7 @@ import scala.io.StdIn.readLine
 object Simulator {
 
   // Muuttuja asetettu nulliksi, jotta se voidaan täyttää myöhemmin.
+  // The variables are set to null so that it can be changed later.
   var Mercury: CelestialObject = null
   var Venus: CelestialObject = null
   var Earth: CelestialObject = null
@@ -18,6 +19,8 @@ object Simulator {
   var Sun: CelestialObject = null
 
   // Planeettojen tietojen haku asetustiedosta ja tallentaminen muuttujiin käyttäen BufferedReaderia.
+  // Retrieving the data of the planetes from configuration file planetInfo.txt using BufferedReader.
+
   val lineReader = new BufferedReader(new FileReader("resources/planetInfo.txt"))
   var currentline: String = null
 
@@ -41,12 +44,13 @@ object Simulator {
           case "Sun" => Sun = tmp
         }
       } catch {
-        case _ => throw new InvalidPlanetInfoException("Asetustiedostoa luettaessa tapahtui virhe.")
+        case _ => throw new InvalidPlanetInfoException("Error while reading the configuration file.")
       }
     }
   }
 
   // Käyttäjän syötteen tallentaminen satelliitin muuttujaan ja timeriin.
+  // User input is saved into variable var satellite and var time.
   def simulate(inputInfo: String) = {
 
     var satellite: CelestialObject = null
@@ -56,19 +60,19 @@ object Simulator {
 
       val info = inputInfo.split(';').map(_.trim).map(_.replace(" ", ""))
 
-      if (BigDecimal(info(0)) <= 0) throw new InvalidInputException("Virheellinen syöte. Massan tulee olla suurempi kuin nolla.")
-
-      satellite = new CelestialObject("Satellite", BigDecimal(info(0)), (BigDecimal(info(1)) * 1000, 0), (BigDecimal(info(2))*cos(Pi/4)*1000, BigDecimal(info(2))*sin(Pi/4)*1000))
+      if (BigDecimal(info(0)) <= 0) throw new InvalidInputException("Incorrect input. The mass has to be bigger than zero.")
+                                                   //mass (kg)          distance (m)                     speed (m/s)
+      satellite = new CelestialObject("Satellite", BigDecimal(info(0)), (BigDecimal(info(1)) * 1000, 0), (BigDecimal(info(2)) * 1000, BigDecimal(info(2)) * 1000))
       time = Timer(info(3).toInt, info(4).toInt)
 
     } catch {
-      case e: ArrayIndexOutOfBoundsException => throw new InvalidInputException("Tarkista, että syötteessä on oikea määrä parametrejä.")
-      case e: NumberFormatException => throw new InvalidInputException("Tarkista, että numerot ovat oikeassa formaatissa ja erisuuria kuin nolla. Syöte ei saa sisältää kirjaimia tai muita merkkjä kuin puolipisteen.")
+      case e: ArrayIndexOutOfBoundsException => throw new InvalidInputException("Incorrect input. Check that your input has the right number of parameters.")
+      case e: NumberFormatException => throw new InvalidInputException("Incorrect input. Check that your numbers are in right format and that they are not zero. The input must not include letters or any other separators than semicolon (;).")
       case InvalidInputException(m) => throw new InvalidInputException(m)
-      case _ => throw new InvalidInputException("Virheellinen syöte. Tarkista, että antamasi arvot ovat suurempia kuin nolla.")
+      case _ => throw new InvalidInputException("Incorrect input. Check that your values are bigger than zero.")
     }
 
-    //Ratapisteiden lasku
+    // Calculating orbitpoints.
     val satelliteOrbit = new OrbitCalculator(satellite, Sun, time)
     val mercuryOrbit = new OrbitCalculator(Mercury, Sun, time)
     val venusOrbit = new OrbitCalculator(Venus, Sun, time)
@@ -91,38 +95,38 @@ object Simulator {
     val neptunePoints = neptuneOrbit.calculateAllCoordinates()
 
 
-    //Tuloste ohjelman tulosteen alkuun.
+    //Basic info which appears in the beginning of the output as explanation for the results.
     println("="*100)
     println("START")
     println("="*100)
-    println("Arvot ovat kilometreissä ja ne kuvaavat x- ja y-koordinaattia, kun Aurinko on origossa.\n\n")
-    println(s"${UNDERLINED}Satelliitin ratapisteet:${RESET}")
-    satellitePoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    println("These values are in kilometers and they represent x and y coordinates when the Sun is in (0,0).\n\n")
+    println(s"${UNDERLINED}# Satellites orbit points: #${RESET}")
+    satellitePoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
 
-    print(s"\n\n\n${UNDERLINED}Merkuriuksen ratapisteet:${RESET}\n")
-    mercuryPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Mercury orbit points: #${RESET}\n")
+    mercuryPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Venuksen ratapisteet:${RESET}\n")
-    venusPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Venus orbit points: #${RESET}\n")
+    venusPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Maan ratapisteet:${RESET}\n")
-    earthPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Earth orbit points: # ${RESET}\n")
+    earthPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Marsin ratapisteet:${RESET}\n")
-    marsPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Mars orbit points: #${RESET}\n")
+    marsPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Jupiterin ratapisteet:${RESET}\n")
-    jupiterPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Jupiter orbit points: #${RESET}\n")
+    jupiterPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Saturnuksen ratapisteet:${RESET}\n")
-    saturnPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Saturn orbit points: #${RESET}\n")
+    saturnPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Uranuksen ratapisteet:${RESET}\n")
-    uranusPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Uranus orbit points: #${RESET}\n")
+    uranusPoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
-    print(s"\n\n\n${UNDERLINED}Neptunuksen ratapisteet:${RESET}\n")
-    neptunePoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(println)
+    print(s"\n\n${UNDERLINED}# Neptune orbit points: #${RESET}\n")
+    neptunePoints.map(p => (p._1.longValue -> p._2.longValue)).foreach(p => println(s"${p._1} ${p._2}"))
 
   }
 }

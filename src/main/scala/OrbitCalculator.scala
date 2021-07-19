@@ -2,7 +2,8 @@ package main.scala
 import scala.collection.mutable.Buffer
 import scala.math._
 
-//Tämä luokka yhdistää CelestialObject luokassa tapahtuvan ratapisteiden laskennan Timer luokasta tulevan tiedon askelten määrästä.
+  //Tämä luokka yhdistää CelestialObject luokassa tapahtuvan ratapisteiden laskennan ja Timer luokasta tulevan tiedon askelten määrästä.
+  //This class connects the calculating in class CelestialObjest to the number of steps which is calculated in class Timer.
 
 class OrbitCalculator(celestialObject1: CelestialObject, celestialObject2: CelestialObject, timer: Timer) {
 

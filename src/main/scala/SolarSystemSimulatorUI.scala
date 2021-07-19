@@ -5,19 +5,19 @@ import scala.io.StdIn.readLine
 
 object SolarSystemSimulatorUI extends App {
 
-  //Tervetuloa-viesti, jossa ohjeet simulaattorin käyttöön.
+  // Welcome message which includes user guide.
   private def run() = {
-    println(s"${UNDERLINED}AURINKOKUNTASIMULAATTORI")
-    println(s"${RESET}Syötä satelliitille arvot massa, alkupiste ja ratanopeus sekä simulaatiojakson pituus ja -askeleen pituus puolipisteellä erotettuna ilman yksiköitä.\n" +
-      "Simulaattori laskee ratapisteet Auringon ympäri satelliitillesi sekä muille aurinkokuntamme planeetoille.\n\n")
-    println(s"${UNDERLINED}Ideaalit suuruudet satelliitille:")
-    println(s"${RESET}Massa: 2 000 kg - 5000 kg\nAlkupiste (Etäisyys Auringosta): 10 000 000 km - 1 000 000 000 km\n" +
-      "Ratanopeus: 20 - 30 km/s\n\n")
-    println(s"${UNDERLINED}Ideaalit suuruudet simulaatiolle:")
-    println(s"${RESET}Simulaatioaskeleen pituus: 12 - 24h\nSimulaatiojakson pituus: 5d - 10d \n\n" +
-      "Esimerkki syöte: 4 500; 18 500 000; 25; 17; 10\n")
+    println(s"${UNDERLINED}SOLAR SYSTEM SIMULATOR")
+    println(s"${RESET}Give mass, starting point and speed for your satellite and duration of one simulation step and simulation period. Separate them using semicolon and without units.\n" +
+      "The simulator calculates orbit points for your satellite around the Sun using your values and also for planets in our solar system.\n\n")
+    println(s"${UNDERLINED}Ideal values for the satellite:")
+    println(s"${RESET}Mass: 2 000 kg - 5000 kg\nStarting point (Distance from the Sun): 10 000 000 km - 1 000 000 000 km\n" +
+      "Speed: 20 - 30 km/s\n\n")
+    println(s"${UNDERLINED}Ideal values for the simulation:")
+    println(s"${RESET}Simulation step: 12 - 24h\nSimulaation period: 200d - 500d \n\n" +
+      "Example input: 4 500; 18 500 000; 25; 17; 250\n")
 
-    val input = readLine("Syötä arvot:")
+    val input = readLine("Input:")
 
     try {
       Simulator.simulate(input)
