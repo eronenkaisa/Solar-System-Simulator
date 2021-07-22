@@ -24,7 +24,7 @@ class CelestialObject(
   var currentPoint: (BigDecimal, BigDecimal) = startingPoint
 
 
-  def calculateForce(another: CelestialObject) = {
+  /*def calculateForce(another: CelestialObject) = {
     val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
 
     val x1 = this.currentPoint._1
@@ -39,6 +39,25 @@ class CelestialObject(
     val yForce: BigDecimal = if (y1 == y2) 0 else (g * (this.mass * another.mass)) / (yDistance * yDistance)
 
     (xForce, yForce)
+  }
+   */
+
+  def calculateForceA(another: CelestialObject) = {
+    val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
+
+    val x1 = this.currentPoint._1
+    val y1 = this.currentPoint._2
+    val x2 = another.currentPoint._1
+    val y2 = another.currentPoint._2
+
+    val distance = sqrt(pow((x1-x2).toDouble,2) + pow((y1-y2).toDouble,2))
+
+    val force = g * (this.mass * another.mass) / pow(distance,2)
+
+    val xForceA = ((x1-x2).abs / distance) * force
+    val yForceA = ((y1-y2).abs / distance) * force
+
+    (xForceA, yForceA)
   }
 
   //In Finnish:
