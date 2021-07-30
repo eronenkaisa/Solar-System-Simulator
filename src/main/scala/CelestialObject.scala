@@ -23,8 +23,8 @@ class CelestialObject(
 
   var currentPoint: (BigDecimal, BigDecimal) = startingPoint
 
-
-  /*def calculateForce(another: CelestialObject) = {
+/*
+  def calculateForce(another: CelestialObject) = {
     val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
 
     val x1 = this.currentPoint._1
@@ -35,12 +35,12 @@ class CelestialObject(
     var xDistance = if (x1 > x2) x1 - x2 else x2 - x1
     var yDistance = if (y1 > y2) y1 - y2 else y2 - y1
 
-    val xForce: BigDecimal = if (x1 == x2) 0 else (g * (this.mass * another.mass)) / (xDistance * xDistance)
-    val yForce: BigDecimal = if (y1 == y2) 0 else (g * (this.mass * another.mass)) / (yDistance * yDistance)
+    val xForce: BigDecimal = if (x1 == x2) 0 else ((g * (this.mass * another.mass)) / (xDistance * xDistance))
+    val yForce: BigDecimal = if (y1 == y2) 0 else ((g * (this.mass * another.mass)) / (yDistance * yDistance)) * (y1 -y2).abs
 
     (xForce, yForce)
   }
-   */
+*/
 
   def calculateForceA(another: CelestialObject) = {
     val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
@@ -54,8 +54,12 @@ class CelestialObject(
 
     val force = g * (this.mass * another.mass) / pow(distance,2)
 
-    val xForceA = ((x1-x2).abs / distance) * force
-    val yForceA = ((y1-y2).abs / distance) * force
+    val xForceA = force * x1.abs
+    val yForceA = force * y1.abs
+
+    //didn't work
+    //val xForceA = ((x1-x2).abs / distance) * force
+    //val yForceA = ((y1-y2).abs / distance) * force
 
     (xForceA, yForceA)
   }
