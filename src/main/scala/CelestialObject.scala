@@ -5,13 +5,9 @@ import scala.math.{sin, cos, Pi, BigDecimal}
 
   //In Finnish:
   //Tämän luokan metodien on tarkoitus on palauttaa aina kappaleen seuraava ratapiste parametreiksi saamillaan tiedoilla.
-  //Tämä luokka käyttää graviaatiolakia sekä Newtonin II lakia.
-  //Gravitaatiolaki: F = g(m_1 * m_2)/r^2
-  //jossa g on gravitaatiovakio, m_1 on satelliitin paino, m_2 planeetan tai Auringon paino ja r kappaleiden etäisyys toisistaan.
+  //Tämä luokka käyttää kaavoja x(t) = Rcos(w*t+fii) ja y(t) = R*sin(w*t+fii)
+  //jossa R on etäisyys Aurigosta (km), w on kulmanopeus (rad/s) ja fii on aika.
 
-  //In English:
-  //This class is meant to return the next orbit point of a planet/satellite. This class uses the second law of Newton F=ma and the formula of gravitational force F = g(m_1 * m_2)/(r^2)
-  //where g is the gravitational constant, m_1 is the mass of the planet/satellite, m_2 is the mass of the Sun and r is the distance between those two objects.
 
 
 class CelestialObject(
