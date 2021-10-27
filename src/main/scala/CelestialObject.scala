@@ -19,7 +19,8 @@ class CelestialObject(
                        val name: String,
                        val mass: BigDecimal, //(kg)
                        startingPoint: (BigDecimal, BigDecimal), //m
-                       var speed: (BigDecimal, BigDecimal))  { //(m/s)//
+                       //var speed: (BigDecimal, BigDecimal)) //(m/s)//
+                        var angularSpeed: BigDecimal) /*(rad/s)*/ {
 
   var currentPoint: (BigDecimal, BigDecimal) = startingPoint
 
@@ -41,21 +42,26 @@ class CelestialObject(
     (xForce, yForce)
   }
 */
-
+/*
   def calculateForceA(another: CelestialObject) = {
     val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
+
 
     val x1 = this.currentPoint._1
     val y1 = this.currentPoint._2
     val x2 = another.currentPoint._1
     val y2 = another.currentPoint._2
 
+    //println("x1, y1" + x1 + ", " + y1)
+    //println("x2, y2" + x2 + ", " + y2)
+
     val distance = sqrt(pow((x1-x2).toDouble,2) + pow((y1-y2).toDouble,2))
 
     val force = g * (this.mass * another.mass) / pow(distance,2)
 
-    val xForceA = force * x1.abs
-    val yForceA = force * y1.abs
+    val norm = sqrt((x1 * x1 + y1 * y1).toDouble)
+    val xForceA = if (x1 == 0) BigDecimal(0) else  force * (x1/norm)
+    val yForceA = if (y1 == 0) BigDecimal(0) else force * (y1/norm)
 
     //didn't work
     //val xForceA = ((x1-x2).abs / distance) * force
@@ -101,6 +107,16 @@ class CelestialObject(
       currentPoint = (currentPoint._1 - (xSpeed * duration), currentPoint._2 - (ySpeed * duration))
 
     }
+  } */
+
+  def calculateNextCoordinate(time: Int) = {
+    //radius*cos(angularSpeed*time +
+    var fii = Pi/4
+    var nextXCoordinate = startingPoint._1 * cos(angularSpeed.toDouble * time + fii)
+    var nextYCoordinate = startingPoint._2 * sin(angularSpeed.toDouble * time + fii)
+
+    (nextXCoordinate, nextYCoordinate)
   }
+
 }
 

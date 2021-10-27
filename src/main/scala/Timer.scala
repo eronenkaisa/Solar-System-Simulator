@@ -17,3 +17,5 @@ object Timer {
     new Timer(oneStepInHours * 60 * 60, periodInDays * 24 * 60 * 60)
   }
 }
+
+//t = durationOfOneStep

@@ -30,7 +30,7 @@ object Simulator {
       try {
 
         val parts = currentline.drop(1).split(';').map(_.trim)
-        val tmp = new CelestialObject(parts(0), BigDecimal(parts(1)), (BigDecimal(parts(2)), BigDecimal(parts(3))), (BigDecimal(parts(4)), BigDecimal(parts(5))))
+        val tmp = new CelestialObject(parts(0), BigDecimal(parts(1)), (BigDecimal(parts(2)), BigDecimal(parts(3))), BigDecimal(parts(4)))
 
         parts(0) match {
           case "Mercury" => Mercury = tmp
@@ -62,7 +62,7 @@ object Simulator {
 
       if (BigDecimal(info(0)) <= 0) throw new InvalidInputException("Incorrect input. The mass has to be bigger than zero.")
                                                    //mass (kg)          distance (m)                     speed (m/s)
-      satellite = new CelestialObject("Satellite", BigDecimal(info(0)), (BigDecimal(info(1)) * 1000, 0), (BigDecimal(info(2)) * 1000, BigDecimal(info(2)) * 1000))
+      satellite = new CelestialObject("Satellite", BigDecimal(info(0)), (BigDecimal(info(1)) * 1000, BigDecimal(info(1)) * 1000), BigDecimal(info(2)))
       time = Timer(info(3).toInt, info(4).toInt)
 
     } catch {

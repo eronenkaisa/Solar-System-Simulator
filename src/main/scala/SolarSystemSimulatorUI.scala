@@ -12,7 +12,7 @@ object SolarSystemSimulatorUI extends App {
       "The simulator calculates orbit points for your satellite around the Sun using your values and also for planets in our solar system.\n\n")
     println(s"${UNDERLINED}Ideal values for the satellite:")
     println(s"${RESET}Mass: 2 000 kg - 5000 kg\nStarting point (Distance from the Sun): 10 000 000 km - 1 000 000 000 km\n" +
-      "Speed: 20 - 30 km/s\n\n")
+      "Angular velocity: 20 - 30 rad/s\n\n")
     println(s"${UNDERLINED}Ideal values for the simulation:")
     println(s"${RESET}Simulation step: 12 - 24h\nSimulaation period: 200d - 500d \n\n" +
       "Example input: 4 500; 18 500 000; 25; 17; 250\n")

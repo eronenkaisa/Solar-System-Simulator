@@ -9,13 +9,13 @@ import scala.math._
 class OrbitCalculator(celestialObject1: CelestialObject, celestialObject2: CelestialObject, timer: Timer) {
 
   def calculateAllCoordinates() = {
-    var allCoordinates = Buffer[(BigDecimal, BigDecimal)](celestialObject1.currentPoint)
+    var allCoordinates = Buffer[(BigDecimal, BigDecimal)]()
 
-    for (_ <- 1 to timer.amountOfSteps) {
-      var (xForce, yForce) = celestialObject1.calculateForceA(celestialObject2)
+    for (t <- 1 to timer.amountOfSteps) {
+      /*var (xForce, yForce) = celestialObject1.calculateForceA(celestialObject2)
       celestialObject1.updateCoordinates(xForce, yForce, timer.durationOfOneStep)
-      allCoordinates += celestialObject1.currentPoint
-
+      allCoordinates += celestialObject1.currentPoint */
+      allCoordinates += celestialObject1.calculateNextCoordinate(timer.durationOfOneStep * t)
     }
     allCoordinates
   }
