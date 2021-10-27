@@ -1,7 +1,6 @@
 package main.scala
 
-import scala.math.{pow,sqrt, atan, sin, cos, Pi, BigDecimal, abs}
-import java.math.MathContext
+import scala.math.{sin, cos, Pi, BigDecimal}
 
 
   //In Finnish:
@@ -19,98 +18,13 @@ class CelestialObject(
                        val name: String,
                        val mass: BigDecimal, //(kg)
                        startingPoint: (BigDecimal, BigDecimal), //m
-                       //var speed: (BigDecimal, BigDecimal)) //(m/s)//
                         var angularSpeed: BigDecimal) /*(rad/s)*/ {
 
   var currentPoint: (BigDecimal, BigDecimal) = startingPoint
 
-/*
-  def calculateForce(another: CelestialObject) = {
-    val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
-
-    val x1 = this.currentPoint._1
-    val y1 = this.currentPoint._2
-    val x2 = another.currentPoint._1
-    val y2 = another.currentPoint._2
-
-    var xDistance = if (x1 > x2) x1 - x2 else x2 - x1
-    var yDistance = if (y1 > y2) y1 - y2 else y2 - y1
-
-    val xForce: BigDecimal = if (x1 == x2) 0 else ((g * (this.mass * another.mass)) / (xDistance * xDistance))
-    val yForce: BigDecimal = if (y1 == y2) 0 else ((g * (this.mass * another.mass)) / (yDistance * yDistance)) * (y1 -y2).abs
-
-    (xForce, yForce)
-  }
-*/
-/*
-  def calculateForceA(another: CelestialObject) = {
-    val g: BigDecimal = 6.67384 * pow(10.0,-11.0)
-
-
-    val x1 = this.currentPoint._1
-    val y1 = this.currentPoint._2
-    val x2 = another.currentPoint._1
-    val y2 = another.currentPoint._2
-
-    //println("x1, y1" + x1 + ", " + y1)
-    //println("x2, y2" + x2 + ", " + y2)
-
-    val distance = sqrt(pow((x1-x2).toDouble,2) + pow((y1-y2).toDouble,2))
-
-    val force = g * (this.mass * another.mass) / pow(distance,2)
-
-    val norm = sqrt((x1 * x1 + y1 * y1).toDouble)
-    val xForceA = if (x1 == 0) BigDecimal(0) else  force * (x1/norm)
-    val yForceA = if (y1 == 0) BigDecimal(0) else force * (y1/norm)
-
-    //didn't work
-    //val xForceA = ((x1-x2).abs / distance) * force
-    //val yForceA = ((y1-y2).abs / distance) * force
-
-    (xForceA, yForceA)
-  }
-
-  //In Finnish:
-  //Metodi calculateForce palauttaa aina positiivisen tuloksen eli voiman itseisarvon. Koska Aurinko on origossa, voi gravitaatiovoima olla joskus myös negatiivinen.
-  //Metodi updateCoordinates ottaa huomioon, missä kohtaa koordinaatistoa kappale on ja määrää siten voiman etumerkin.
-  //Jaoin "avaruuden" neljään lohkoon, jossa voima etumerkin määrää suuntasopimus. Suuntasopimuksen mukaan positiiviset suunnat osoittavat x- ja y- koordinaattiakselien suuntaan.
-
-  //In English:
-  //Method calculateForce always returns absolute value of the force between the Sun and the satelite/planet. Since the Sun is in (0,0) gravitational force can also be negative according to
-  //declaration that says positive directions are to right and up along the axis from (0,0). Method updateCoordinates takes planets/satelites previous orbit point into consideration when calculating
-  //the sign of the force.
-  //The space is divided into four quarters where the conclusive impact of the force to the coordinates is different in every one of the them.
-
-
-  def updateCoordinates(xForce: BigDecimal, yForce: BigDecimal, duration: BigDecimal) = {
-    val xSpeed = speed._1 + (((xForce/mass) * duration))
-    val ySpeed = speed._2 + (((yForce/mass) * duration))
-
-        // left hand side lower quarter
-    if (currentPoint._1 <= 0 && currentPoint._2 < 0) {
-
-      currentPoint = (currentPoint._1 - (xSpeed * duration), currentPoint._2 + (ySpeed * duration))
-
-               // left hand side upper quarter
-    } else if (currentPoint._1 < 0 && currentPoint._2 >= 0) {
-
-      currentPoint = (currentPoint._1 + (xSpeed * duration), currentPoint._2 + (ySpeed * duration))
-
-                // right hand sode upper quarter
-    } else if (currentPoint._1 >= 0 && currentPoint._2 > 0) {
-
-      currentPoint = (currentPoint._1 + (xSpeed * duration), currentPoint._2 - (ySpeed * duration))
-
-              // right hand side lower quarter
-    } else if (currentPoint._1 > 0 && currentPoint._2 <= 0) {
-
-      currentPoint = (currentPoint._1 - (xSpeed * duration), currentPoint._2 - (ySpeed * duration))
-
-    }
-  } */
 
   def calculateNextCoordinate(time: Int) = {
-    //radius*cos(angularSpeed*time +
+    //radius*cos(angularSpeed*time + fii)
     var fii = Pi/4
     var nextXCoordinate = startingPoint._1 * cos(angularSpeed.toDouble * time + fii)
     var nextYCoordinate = startingPoint._2 * sin(angularSpeed.toDouble * time + fii)

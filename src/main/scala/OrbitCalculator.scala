@@ -12,9 +12,6 @@ class OrbitCalculator(celestialObject1: CelestialObject, celestialObject2: Celes
     var allCoordinates = Buffer[(BigDecimal, BigDecimal)]()
 
     for (t <- 1 to timer.amountOfSteps) {
-      /*var (xForce, yForce) = celestialObject1.calculateForceA(celestialObject2)
-      celestialObject1.updateCoordinates(xForce, yForce, timer.durationOfOneStep)
-      allCoordinates += celestialObject1.currentPoint */
       allCoordinates += celestialObject1.calculateNextCoordinate(timer.durationOfOneStep * t)
     }
     allCoordinates

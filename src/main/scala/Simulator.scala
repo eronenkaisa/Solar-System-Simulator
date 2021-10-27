@@ -2,7 +2,6 @@ package main.scala
 import scala.math._
 import java.io.{BufferedReader, FileReader}
 import scala.Console.{RESET, UNDERLINED}
-import scala.io.StdIn.readLine
 
 object Simulator {
 
